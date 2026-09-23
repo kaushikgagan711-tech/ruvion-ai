@@ -1,0 +1,34 @@
+name: Build RUVION for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'windows/**'
+      - 'RUVION/web/**'
+      - '.github/workflows/windows.yml'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish RUVION
+        run: dotnet publish windows/RUVION.Windows.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -o windows/publish
+
+      - name: Package Windows build
+        shell: pwsh
+        run: Compress-Archive -Path windows/publish/* -DestinationPath RUVION-Windows-x64.zip
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RUVION-Windows-x64
+          path: RUVION-Windows-x64.zip
