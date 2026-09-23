@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090a0d" />
+  <title>RUVION — Think. Learn. Create.</title>
+  <meta name="description" content="RUVION is a premium, privacy-aware assistant built for thinking, learning, and creating." />
+  <style>
+    :root{--bg:#090a0d;--panel:#101217;--panel2:#161920;--panel3:#1b1f28;--line:#262b36;--muted:#8d96a8;--text:#edf0f6;--soft:#c0c7d3;--blue:#78a7ff;--blue2:#4477dc;--green:#86d7b0;--danger:#ff8791;--shadow:0 24px 80px rgba(0,0,0,.35)}
+    *{box-sizing:border-box}html,body,#app{height:100%;margin:0}#app{display:flex}body{background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.45}button,input,textarea,select{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.hidden{display:none!important}
+    .shell{display:flex;height:100%;overflow:hidden}.sidebar{width:276px;flex:0 0 276px;background:#0c0e12;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 12px 12px}.brand{display:flex;align-items:center;gap:10px;padding:2px 8px 20px;font-weight:680;letter-spacing:-.03em}.nova-mark{width:29px;height:29px;border-radius:10px;background:linear-gradient(135deg,#dce9ff 0%,#7ba3fb 42%,#406ed1 100%);display:grid;place-items:center;box-shadow:0 0 28px rgba(90,135,255,.22)}.nova-mark svg{width:19px;height:19px;fill:#10182b}.nav-button,.chat-row,.side-footer button{border:0;background:transparent;border-radius:10px;text-align:left;width:100%;display:flex;align-items:center;gap:10px;padding:10px 10px;color:var(--soft);transition:.16s}.nav-button:hover,.chat-row:hover,.side-footer button:hover,.chat-row.active{background:var(--panel2);color:var(--text)}.nav-button.primary{background:#e8eefc;color:#121a2b;font-weight:650;margin-bottom:5px}.nav-button.primary:hover{background:#fff}.icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.section-title{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#687284;font-weight:750;padding:21px 10px 7px}.chat-list{overflow:auto;min-height:0}.chat-row{padding:9px 10px;font-size:13px;justify-content:space-between;gap:6px}.chat-row span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-dots{opacity:.8;border:0;background:#202633;color:#c1cbdd;padding:4px;border-radius:6px;flex:0 0 auto}.chat-row:hover .chat-dots{opacity:1;background:#303645;color:#fff}.chat-dots:hover{background:#3d4759!important}.side-footer{margin-top:auto;border-top:1px solid var(--line);padding-top:10px}.side-footer button{font-size:13px}.avatar{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#293142;font-size:10px;font-weight:700;color:#cbd6f0}
+    .main{min-width:0;flex:1;display:flex;flex-direction:column;position:relative;background:radial-gradient(ellipse at 52% -40%,rgba(66,97,162,.14),transparent 45%),var(--bg)}.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(38,43,54,.55);gap:12px}.chat-name{font-weight:630;letter-spacing:-.015em}.model{display:flex;gap:7px;align-items:center;color:var(--muted);font-size:13px}.model select{background:transparent;border:0;color:var(--soft);font-size:13px;outline:0}.top-actions{display:flex;gap:7px}.icon-button{height:34px;width:34px;border-radius:9px;display:grid;place-items:center;border:1px solid transparent;background:transparent;color:var(--muted)}.icon-button:hover{border-color:var(--line);background:var(--panel2);color:var(--text)}
+    .chat-area{flex:1;overflow:auto;scroll-behavior:smooth}.conversation{max-width:850px;margin:0 auto;padding:58px 28px 180px}.welcome{min-height:calc(100vh - 310px);display:flex;flex-direction:column;justify-content:center;padding-bottom:42px}.welcome-mark{width:46px;height:46px;border-radius:16px;margin-bottom:22px}.welcome h1{font-size:34px;line-height:1.1;margin:0 0 10px;letter-spacing:-.045em}.welcome p{margin:0;color:var(--muted);font-size:16px}.suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:34px;max-width:660px}.suggestion{background:rgba(22,25,32,.72);border:1px solid var(--line);border-radius:13px;color:var(--soft);padding:14px;text-align:left;min-height:82px;transition:.16s}.suggestion:hover{background:var(--panel3);border-color:#3a4355;color:var(--text);transform:translateY(-1px)}.suggestion b{display:block;color:var(--text);font-size:13px;margin-bottom:3px}.suggestion small{color:var(--muted);font-size:12px}.message{display:grid;grid-template-columns:33px minmax(0,1fr);gap:14px;margin:0 0 32px}.message.user{grid-template-columns:minmax(0,1fr);margin-left:92px}.message.user .message-body{background:var(--panel2);border:1px solid #222833;border-radius:15px 15px 4px 15px;padding:12px 15px}.message-avatar{width:30px;height:30px;border-radius:10px;background:#1a2130;display:grid;place-items:center}.message-avatar .nova-mark{width:24px;height:24px;border-radius:8px}.message-avatar .nova-mark svg{width:15px}.message-body{min-width:0}.message-meta{font-size:12px;color:var(--muted);margin-bottom:7px}.message-text{color:#e5e9f1;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65}.message-text code{font-family:"SFMono-Regular",Consolas,monospace;font-size:.9em;background:#191d25;padding:2px 4px;border-radius:4px}.message-actions{opacity:0;display:flex;gap:5px;margin-top:9px;transition:.16s}.message:hover .message-actions{opacity:1}.message-actions button{border:0;background:transparent;color:#8993a6;font-size:12px;padding:3px 5px;border-radius:5px}.message-actions button:hover{background:var(--panel3);color:var(--text)}.notice{font-size:13px;color:#adb6c7;background:#101722;border:1px solid #263a59;border-radius:11px;padding:11px 13px;margin-top:12px}.tool-status{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;padding:10px 0}.spinner{width:14px;height:14px;border-radius:50%;border:2px solid #3a4353;border-top-color:var(--blue);animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .composer-wrap{position:absolute;bottom:0;left:0;right:0;padding:22px 28px 25px;background:linear-gradient(transparent,rgba(9,10,13,.98) 28%)}.composer-box{max-width:850px;margin:0 auto;background:#151820;border:1px solid #2c3240;border-radius:18px;box-shadow:0 12px 46px rgba(0,0,0,.22);position:relative}.composer-box:focus-within{border-color:#536b9b;box-shadow:0 0 0 3px rgba(78,119,205,.11),0 12px 46px rgba(0,0,0,.22)}#composer{resize:none;width:100%;min-height:56px;max-height:180px;padding:16px 50px 10px 17px;background:transparent;border:0;color:var(--text);outline:0;line-height:1.45}.composer-bottom{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px}.composer-left{display:flex;gap:4px;align-items:center}.composer-left .icon-button{height:32px;width:32px}.send{border:0;width:32px;height:32px;border-radius:10px;background:#ecf1ff;color:#121a2c;display:grid;place-items:center;transition:.16s}.send:disabled{background:#2a2f3a;color:#6f7786;cursor:default}.send:not(:disabled):hover{background:#fff;transform:translateY(-1px)}.composer-note{max-width:850px;margin:8px auto 0;text-align:center;color:#6f7888;font-size:11px}.attachments{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px 0}.attachment{display:flex;align-items:center;gap:8px;background:#202530;border:1px solid #343b4a;padding:5px 7px 5px 5px;border-radius:9px;font-size:12px;max-width:235px}.attachment-thumb{width:28px;height:28px;border-radius:5px;object-fit:cover;background:#2f3644}.attachment-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.attachment button{border:0;background:transparent;color:var(--muted);padding:2px}.drop-overlay{position:absolute;inset:0;border:1px dashed #7da9ff;background:rgba(32,54,99,.16);border-radius:18px;display:grid;place-items:center;color:#bcd1ff;font-weight:600;z-index:4}
+    .menu{position:absolute;left:12px;bottom:61px;width:220px;background:#191d25;border:1px solid #343b48;border-radius:14px;box-shadow:var(--shadow);padding:6px;z-index:10}.menu button{width:100%;border:0;background:transparent;border-radius:9px;padding:10px;display:flex;align-items:center;gap:10px;text-align:left;color:var(--soft);font-size:13px}.menu button:hover{background:#262c37;color:var(--text)}.menu small{margin-left:auto;color:#747d8e}.popover{position:absolute;right:28px;top:55px;background:#171a21;border:1px solid #343946;border-radius:12px;box-shadow:var(--shadow);min-width:185px;padding:6px;z-index:15}.popover button{display:block;width:100%;padding:9px;border:0;border-radius:8px;background:transparent;text-align:left;color:var(--soft);font-size:13px}.popover button:hover{background:#252a34;color:var(--text)}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.54);backdrop-filter:blur(4px);display:grid;place-items:center;padding:22px;z-index:40}.dialog{width:min(660px,100%);max-height:min(82vh,760px);overflow:auto;background:#12151b;border:1px solid #303642;border-radius:18px;box-shadow:0 30px 110px rgba(0,0,0,.6)}.dialog-head{padding:22px 24px 16px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--line)}.dialog h2{font-size:19px;margin:0;letter-spacing:-.02em}.dialog-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.close{border:0;background:transparent;color:var(--muted);padding:3px}.dialog-content{padding:22px 24px}.form-row{display:grid;gap:7px;margin-bottom:16px}.form-row label{font-size:13px;color:var(--soft);font-weight:600}.form-row input,.form-row select{width:100%;border:1px solid #343a47;background:#191d25;color:var(--text);border-radius:9px;padding:10px 11px}.form-help{font-size:12px;color:var(--muted);margin-top:-9px}.button{border:1px solid #353c49;background:#242a35;border-radius:9px;padding:9px 12px;color:var(--text);font-weight:600;font-size:13px}.button:hover{background:#2d3441}.button.accent{background:#dfe9ff;color:#14203a;border-color:#dfe9ff}.button.accent:hover{background:#fff}.button.danger{color:#ffadb4}.button-row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);padding:0 24px}.tab{padding:12px 6px 10px;margin-right:16px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font-size:13px}.tab.active{color:var(--text);border-color:var(--blue)}.memory-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.memory-item:last-child{border:0}.memory-kind{font-size:11px;color:#94b7ff;text-transform:uppercase;letter-spacing:.07em;min-width:82px;padding-top:2px}.memory-value{flex:1}.memory-value p{margin:0;font-size:13px}.memory-item button{border:0;background:transparent;color:var(--muted);font-size:12px}.memory-empty{color:var(--muted);text-align:center;padding:35px 0}.plans{width:min(1050px,100%)}.plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:22px 24px 24px}.plan{border:1px solid #303642;border-radius:14px;padding:17px;min-height:303px;display:flex;flex-direction:column;background:#151820}.plan.featured{border-color:#6f91e4;background:linear-gradient(145deg,#1b2337,#151820 55%);box-shadow:inset 0 1px 0 rgba(180,203,255,.12)}.plan-label{font-size:12px;color:#9eb9ff;font-weight:700;min-height:18px}.plan h3{font-size:18px;margin:8px 0 4px}.price{font-size:25px;font-weight:760;letter-spacing:-.04em}.per{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0}.plan p{font-size:12px;color:var(--muted);min-height:55px;margin:13px 0}.plan ul{padding:0;margin:0;list-style:none;color:var(--soft);font-size:12px;line-height:1.7}.plan li:before{content:'✓';color:var(--green);padding-right:7px}.plan .button{width:100%;margin-top:auto;text-align:center}.status{font-size:12px;padding:9px 11px;border-radius:9px;margin:14px 0;background:#151a22;color:var(--muted)}.status.ok{background:#11241d;color:#a4e2bf}.status.warn{background:#261d16;color:#edc798}.settings-nav{width:150px;border-right:1px solid var(--line);padding-right:15px;float:left;min-height:300px}.settings-nav button{display:block;width:100%;border:0;border-radius:8px;background:transparent;color:var(--muted);text-align:left;padding:8px;font-size:13px}.settings-nav button.active,.settings-nav button:hover{background:var(--panel2);color:var(--text)}.settings-panel{margin-left:172px;min-height:300px}.settings-panel h3{margin:0 0 7px;font-size:16px}.settings-panel>p{color:var(--muted);font-size:13px;margin:0 0 18px}.shortcut{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.kbd{background:#222832;border:1px solid #343a46;color:#cbd2df;padding:2px 5px;border-radius:4px;font-family:ui-monospace,monospace;font-size:11px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(100px);z-index:60;background:#ecf1ff;color:#151d30;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;box-shadow:var(--shadow);transition:.24s}.toast.show{transform:translateX(-50%) translateY(0)}.onboarding{width:100%;min-height:100%;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 12%,rgba(74,110,188,.18),transparent 40%),var(--bg);padding:24px}.onboarding-card{width:min(480px,100%);padding:38px;border:1px solid #303846;border-radius:24px;background:rgba(18,21,27,.94);box-shadow:0 32px 100px rgba(0,0,0,.45)}.onboarding-card .nova-mark{width:50px;height:50px;border-radius:17px;margin-bottom:24px}.onboarding-card .nova-mark svg{width:30px}.onboarding-card h1{font-size:30px;letter-spacing:-.045em;margin:0 0 5px}.onboarding-card .tagline{color:#aab4c6;margin:0 0 34px;font-size:16px}.onboarding-card label{display:block;font-size:18px;font-weight:650;margin-bottom:12px;letter-spacing:-.02em}.onboarding-card input{width:100%;background:#181c24;border:1px solid #353d4a;border-radius:11px;color:var(--text);padding:13px 14px;font-size:16px}.onboarding-card .button{margin-top:14px;width:100%;padding:12px}.onboarding-note{color:#798395;font-size:12px;margin:13px 0 0;text-align:center}.profile-row{padding:8px 6px!important;align-items:center!important}.profile-row .avatar{width:31px;height:31px;font-size:11px;background:#394664;color:#e1e9ff}.profile-text{display:grid;gap:0;line-height:1.2}.profile-text b{font-size:13px}.profile-text small{font-size:11px;color:var(--muted);margin-top:3px}
+    @media(max-width:760px){.sidebar{position:absolute;z-index:25;height:100%;transform:translateX(-100%);transition:.2s;box-shadow:var(--shadow)}.sidebar.open{transform:translateX(0)}.topbar{padding:0 16px}.conversation{padding:35px 16px 175px}.welcome h1{font-size:29px}.suggestions{grid-template-columns:1fr}.message.user{margin-left:36px}.composer-wrap{padding:14px 12px 16px}.model{display:none}.plans-grid{grid-template-columns:1fr}.settings-nav{float:none;width:100%;min-height:0;border:0;padding:0;margin-bottom:14px;display:flex;gap:3px;overflow:auto}.settings-nav button{width:auto;white-space:nowrap}.settings-panel{margin-left:0}.message-actions{opacity:1}.top-actions .icon-button:first-child{display:grid}}
+  </style>
+</head>
+<body>
+<div id="app"></div><input id="fileInput" type="file" multiple hidden /><input id="imageInput" type="file" accept="image/*" hidden />
+<script src="./profile-store.js"></script>
+<script src="./native-config.js"></script>
+<script src="./plan-config.js"></script>
+<script>
+const $=(s,e=document)=>e.querySelector(s), $$=(s,e=document)=>[...e.querySelectorAll(s)];
+const icon=(name)=>({plus:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',search:'<svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>',brain:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 5a3 3 0 0 0-5.7 1.3A3.3 3.3 0 0 0 5 12.5 3.2 3.2 0 0 0 8 18h1a3 3 0 0 0 3 2"/><path d="M12 5a3 3 0 0 1 5.7 1.3 3.3 3.3 0 0 1 1.3 6.2A3.2 3.2 0 0 1 16 18h-1a3 3 0 0 1-3 2M12 5v15M8 10h4M12 14h4"/></svg>',menu:'<svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',more:'<svg class="icon" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="19" cy="12" r="1" fill="currentColor"/></svg>',gear:'<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.1 2.1-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-3v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-2.1-2.1.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H5.3v-3h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 2.1-2.1.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2h3v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 2.1 2.1-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2v3h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>',upload:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4M5 15v4h14v-4"/></svg>',image:'<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 20"/></svg>',camera:'<svg class="icon" viewBox="0 0 24 24"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/></svg>',wand:'<svg class="icon" viewBox="0 0 24 24"><path d="m15 4 1.2 3.8L20 9l-3.8 1.2L15 14l-1.2-3.8L10 9l3.8-1.2L15 4ZM6 13l.8 2.2L9 16l-2.2.8L6 19l-.8-2.2L3 16l2.2-.8L6 13ZM18 15l.6 1.4L20 17l-1.4.6L18 19l-.6-1.4L16 17l1.4-.6L18 15Z"/><path d="m8.5 9.5 6 6"/></svg>',video:'<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>',send:'<svg class="icon" viewBox="0 0 24 24"><path d="m5 12 14-7-4 14-3-5-7-2Z"/><path d="m12 14 3-3"/></svg>',x:'<svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>',export:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4M5 14v6h14v-6"/></svg>',copy:'<svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"/></svg>',trash:'<svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M10 11v5M14 11v5M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',edit:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4L16.5 3.5Z"/></svg>'}[name]||'');
+const nova=`<span class="nova-mark"><svg viewBox="0 0 24 24"><path d="m12 2 1.9 7.1L21 11l-7.1 1.9L12 20l-1.9-7.1L3 11l7.1-1.9L12 2Z"/></svg></span>`;
+const uid=()=>Math.random().toString(36).slice(2,10), esc=(s)=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const defaults={chats:[{id:'welcome',title:'New conversation',created:Date.now(),messages:[]}],active:'welcome',memories:[],settings:{apiUrl:window.RUVION_API_URL,model:'RUVION Auto',theme:'dark'},plan:'Free'};
+let data;try{data=Object.assign({},defaults,JSON.parse(localStorage.ruvionData||localStorage.novaData||'{}'));data.settings=Object.assign({},defaults.settings,data.settings||{});if(!data.chats?.length)data.chats=defaults.chats}catch{data=structuredClone(defaults)}
+// Older builds stored the placeholder public URL; the native bundle now uses
+// the secure local server so existing profiles recover automatically.
+if(data.settings.apiUrl==='https://api.ruvion.app/v1/chat') data.settings.apiUrl='http://127.0.0.1:18766/v1/chat';
+const profileStore=new RuvionProfileStore();
+let profile={displayName:'',onboardingComplete:false};
+let attachments=[], menuOpen=false, activeDialog=null, editing=null;
+function save(){localStorage.ruvionData=JSON.stringify(data)}function active(){return data.chats.find(c=>c.id===data.active)||data.chats[0]}function titleFor(text){return text.replace(/\s+/g,' ').slice(0,42)||(active().messages.length?'Untitled chat':'New conversation')}
+function initials(name){return name.trim().split(/\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join('').toUpperCase()||'R'}
+async function loadProfile(){profile=await profileStore.load();render()}
+async function saveProfile(displayName){try{profile=await profileStore.save({...profile,displayName,onboardingComplete:true});render();toast('Local profile saved')}catch(error){toast(error.message||'Enter a name to continue')}}
+function formatText(text){return esc(text).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')}
+function render(){if(!profile.onboardingComplete){$('#app').innerHTML=onboardingHTML();bindOnboarding();return}const chat=active(),workMode=currentPlan().workMode||'Starter',workLabel=`RUVION Work · ${workMode}`;$('#app').innerHTML=`<aside class="sidebar" id="sidebar"><div class="brand">${nova}<span>RUVION</span></div><button class="nav-button primary" id="newChat">${icon('plus')} New chat</button><button class="nav-button" id="searchChats">${icon('search')} Search chats <span style="margin-left:auto;font-size:11px;color:#727b8a">⌘ K</span></button><button class="nav-button" id="memoryBtn">${icon('brain')} Memory <span style="margin-left:auto;font-size:11px;color:#727b8a">${data.memories.length||''}</span></button><div class="section-title">Recent chats</div><div class="chat-list">${data.chats.slice().sort((a,b)=>b.created-a.created).map(c=>`<button class="chat-row ${c.id===data.active?'active':''}" data-chat="${c.id}"><span>${esc(c.title)}</span><i class="chat-dots">${icon('more')}</i></button>`).join('')}</div><div class="side-footer"><button class="profile-row" id="profileBtn"><span class="avatar">${esc(initials(profile.displayName))}</span><span class="profile-text"><b>${esc(profile.displayName)}</b><small>Local Profile</small></span></button><button id="plansBtn"><span class="avatar">✦</span><span>Free plan</span><span style="margin-left:auto;color:#93b6ff">Upgrade</span></button><button id="settingsBtn">${icon('gear')} Settings</button></div></aside><main class="main"><header class="topbar"><div style="display:flex;align-items:center;gap:9px"><button class="icon-button" id="mobileMenu">${icon('menu')}</button><span class="chat-name">${esc(chat.title)}</span></div><div class="model"><span style="color:#8fb6ff">●</span><select id="modelSelect"><option ${data.settings.model==='RUVION Auto'?'selected':''}>RUVION Auto</option><option ${data.settings.model===workLabel?'selected':''}>${workLabel}</option></select></div><div class="top-actions"><button class="icon-button" id="exportBtn" title="Export chat">${icon('export')}</button><button class="icon-button" id="chatMenu" title="Chat options">${icon('more')}</button></div></header><section class="chat-area" id="chatArea"><div class="conversation" id="conversation">${chat.messages.length?chat.messages.map(messageHTML).join(''):welcomeHTML()}</div></section><div class="composer-wrap"><div class="composer-box" id="composerBox"><div id="dropOverlay" class="drop-overlay hidden">Drop files to attach</div><div class="attachments" id="attachments">${attachments.map(attachmentHTML).join('')}</div><textarea id="composer" aria-label="Message RUVION" placeholder="Message RUVION" rows="1">${editing?.text||''}</textarea><div class="composer-bottom"><div class="composer-left"><button class="icon-button" id="plusBtn" title="Add">${icon('plus')}</button><button class="icon-button" id="modelHint" title="Mode: ${esc(data.settings.model)}">${icon('wand')}</button></div><button class="send" id="sendBtn" title="Send" ${(!($('#composer')?.value?.trim())&&!editing)?'disabled':''}>${icon('send')}</button></div>${menuOpen?plusMenu():''}</div><div class="composer-note">RUVION can make mistakes. Check important information.</div></div>${activeDialog?dialogHTML():''}<div class="toast" id="toast"></div></main>`;bind();requestAnimationFrame(()=>{const a=$('#chatArea');a.scrollTop=a.scrollHeight})}
+function onboardingHTML(){return `<section class="onboarding"><div class="onboarding-card">${nova}<h1>RUVION</h1><p class="tagline">Think. Learn. Create.</p><form id="onboardingForm"><label for="displayName">What should I call you?</label><input id="displayName" maxlength="80" autocomplete="name" placeholder="Enter your name" autofocus required/><button class="button accent" type="submit">Continue</button></form><p class="onboarding-note">Saved locally on this device. No account required.</p></div></section>`}
+function bindOnboarding(){$('#onboardingForm').onsubmit=event=>{event.preventDefault();saveProfile($('#displayName').value)}}
+function welcomeHTML(){return `<div class="welcome">${nova.replace('nova-mark','nova-mark welcome-mark')}<h1>What can I help you think through?</h1><p>Ask, create, learn, or bring in a file to explore.</p><div class="suggestions"><button class="suggestion" data-prompt="Help me make a realistic plan for my week"><b>Plan with clarity</b><small>Turn a busy week into a workable plan</small></button><button class="suggestion" data-prompt="Explain a difficult concept in a simple way"><b>Learn something difficult</b><small>Get a clear, step-by-step explanation</small></button><button class="suggestion" data-prompt="Help me brainstorm ideas for a new project"><b>Explore an idea</b><small>Start wide, then find a promising direction</small></button><button class="suggestion" data-prompt="Review this writing and make it more clear"><b>Improve some writing</b><small>Shape tone, structure, and clarity</small></button></div></div>`}
+function messageHTML(m,i){let attachmentsHTML=m.attachments?.length?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${m.attachments.map(a=>`<span class="attachment"><span class="attachment-name">${esc(a.name)}</span></span>`).join('')}</div>`:'';return `<article class="message ${m.role}" data-message="${m.id}">${m.role==='assistant'?`<div class="message-avatar">${nova}</div>`:''}<div class="message-body">${m.role==='assistant'?'<div class="message-meta">RUVION</div>':''}${attachmentsHTML}<div class="message-text">${formatText(m.text)}</div>${m.status?`<div class="notice">${esc(m.status)}</div>`:''}<div class="message-actions">${m.role==='assistant'?`<button data-action="copy" data-id="${m.id}">${icon('copy')} Copy</button><button data-action="regen" data-id="${m.id}">↻ Regenerate</button>`:`<button data-action="edit" data-id="${m.id}">${icon('edit')} Edit</button><button data-action="copy" data-id="${m.id}">${icon('copy')} Copy</button><button data-action="resend" data-id="${m.id}">↗ Resend</button>`}</div></div></article>`}
+function attachmentHTML(a,i){return `<div class="attachment">${a.url?`<img class="attachment-thumb" src="${a.url}" alt=""/>`:`<span class="attachment-thumb" style="display:grid;place-items:center">${icon('upload')}</span>`}<span class="attachment-name">${esc(a.name)}</span><button data-remove="${i}" title="Remove">${icon('x')}</button></div>`}
+function plusMenu(){return `<div class="menu" id="plusMenu"><button data-plus="file">${icon('upload')} Upload file</button><button data-plus="image">${icon('image')} Upload image</button><button data-plus="camera">${icon('camera')} Take photo <small>when supported</small></button><button data-plus="imagegen">${icon('wand')} Generate image</button><button data-plus="videogen">${icon('video')} Generate video</button></div>`}
+function dialogHTML(){if(activeDialog==='plans')return `<div class="overlay" data-close><section class="dialog plans"><header class="dialog-head"><div><h2>Choose your RUVION experience</h2><p>Simple pricing for when you need more room to create.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="plans-grid">${planCard('Free','₹0','Basic AI chat with sensible limits',['Everyday chat','Local history & exports'],'Current plan')}${planCard('Plus','₹499','Higher limits, better models, more uploads and image generation',['More capable models','Higher file & image limits','Priority tools'],'Choose Plus',true)}${planCard('Student Plus','₹0','Same Plus benefits for 12 months after student verification.',['12 months of Plus','Student verification required','Then ₹499/month'],'Verify student')}${planCard('Pro','₹2,999','Highest limits, strongest available models, advanced image, video and tools.',['Highest available limits','Advanced creation tools','Priority access'],'Choose Pro')}</div></section></div>`;if(activeDialog==='memory')return `<div class="overlay" data-close><section class="dialog"><header class="dialog-head"><div><h2>Memory</h2><p>Review what RUVION may use to make replies more helpful.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="dialog-content"><div class="form-row"><label for="memoryText">Remember something</label><input id="memoryText" placeholder="e.g. I prefer concise answers"/><select id="memoryCategory"><option>Preferences</option><option>Identity</option><option>Projects</option><option>Instructions</option><option>Other</option></select></div><button class="button accent" id="addMemory">Remember this</button><div style="margin-top:18px">${data.memories.length?data.memories.map(m=>`<div class="memory-item"><span class="memory-kind">${esc(m.category)}</span><div class="memory-value"><p>${esc(m.value)}</p></div><button data-forget="${m.id}">Forget</button></div>`).join(''):'<div class="memory-empty">No saved memories yet. RUVION only keeps what you choose to remember.</div>'}</div></div></section></div>`;if(activeDialog==='settings')return `<div class="overlay" data-close><section class="dialog"><header class="dialog-head"><div><h2>Settings</h2><p>Control your RUVION experience on this device.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="dialog-content"><nav class="settings-nav"><button class="active" data-setting="connection">Connection</button><button data-setting="data">Data</button><button data-setting="shortcuts">Shortcuts</button><button data-setting="about">About</button></nav><div class="settings-panel" id="settingsPanel">${settingsPanel('connection')}</div></div></section></div>`;if(activeDialog==='search')return `<div class="overlay" data-close><section class="dialog" style="width:min(560px,100%)"><header class="dialog-head"><div><h2>Search chats</h2><p>Find messages and conversations stored on this device.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="dialog-content"><div class="form-row"><input id="searchInput" placeholder="Search your chats…" autofocus /></div><div id="searchResults" class="memory-empty">Start typing to search.</div></div></section></div>`;return ''}
+function planCard(name,price,desc,features,label,featured=false){let current=(name==='Pro'&&data.entitlement==='pro')||(name==='Plus'&&data.entitlement==='plus')||(name==='Free'&&data.entitlement==='free');let suffix=price.includes('for 6 months')?'':(name==='Student Plus'?'<span class="per"> / 6 months</span>':price!=='₹0'?'<span class="per"> / month</span>':'');return `<article class="plan ${featured?'featured':''}"><span class="plan-label">${featured?'MOST POPULAR':''}</span><h3>${name}</h3><div class="price">${price}${suffix}</div><p>${desc}</p><ul>${features.map(x=>`<li>${x}</li>`).join('')}</ul><button class="button ${featured?'accent':''}" data-plan="${name}" ${current?'disabled':''}>${current?'Current plan':label}</button></article>`}
+function settingsPanel(name){if(name==='data')return `<h3>Your data</h3><p>Export a versioned backup or restore one created by RUVION.</p><div class="button-row" style="justify-content:flex-start"><button class="button" id="exportData">Export data</button><label class="button" for="importData">Import data</label><input id="importData" type="file" accept="application/json" hidden /></div><div class="status">Exports include chats, memories, settings, and plan preference. Files stay local unless you choose to save or share them.</div>`;if(name==='shortcuts')return `<h3>Keyboard shortcuts</h3><p>Fast ways to move through RUVION.</p><div class="shortcut"><span>New chat</span><span class="kbd">⌘ N</span></div><div class="shortcut"><span>Search chats</span><span class="kbd">⌘ K</span></div><div class="shortcut"><span>Send message</span><span class="kbd">⌘ Enter</span></div><div class="shortcut"><span>Close menu</span><span class="kbd">Esc</span></div>`;if(name==='about')return `<h3>RUVION</h3><p>Think. Learn. Create.</p><div class="status ok">Created by Gagan Kaushik Sammeta.</div><p style="margin-top:16px">Version 0.1.0 · Web foundation<br>Built with a provider-agnostic architecture for Gemini and future model providers.</p>`;return `<h3>Secure connection</h3><p>RUVION connects only to a server-side AI endpoint. Keys are never stored in this browser.</p><div class="form-row"><label for="apiUrl">RUVION API endpoint</label><input id="apiUrl" placeholder="https://your-secure-server.example/v1/chat" value="${esc(data.settings.apiUrl)}" /><span class="form-help">The endpoint receives POST JSON and returns a reply. Leave empty to use RUVION locally without AI generation.</span></div><div class="status ${data.settings.apiUrl?'ok':'warn'}" id="connectionStatus">${data.settings.apiUrl?'Endpoint configured for this device.':'No AI endpoint configured. RUVION will clearly say when a live response requires one.'}</div><div class="button-row"><button class="button" id="testConnection">Test connection</button><button class="button accent" id="saveConnection">Save connection</button></div>`}
+function bind(){
+ $('#profileBtn')?.addEventListener('click',()=>openDialog('settings'));
+ $('#newChat').onclick=newChat; $('#memoryBtn').onclick=()=>openDialog('memory'); $('#plansBtn').onclick=()=>openDialog('plans'); $('#settingsBtn').onclick=()=>openDialog('settings'); $('#searchChats').onclick=()=>openDialog('search'); $('#mobileMenu').onclick=()=>$('#sidebar').classList.toggle('open'); $('#exportBtn').onclick=()=>exportChat(active()); $('#chatMenu').onclick=(e)=>{let p=$('.popover');if(p)p.remove();else{let d=document.createElement('div');d.className='popover';d.innerHTML='<button data-menu-action="rename">Rename chat</button><button data-menu-action="delete" style="color:#ffadb4">Delete chat</button>';$('.main').append(d)}};
+ $$('.chat-row').forEach(b=>b.onclick=()=>{data.active=b.dataset.chat;save();render()}); $$('.suggestion').forEach(b=>b.onclick=()=>{const c=$('#composer');c.value=b.dataset.prompt;autoSize(c);updateSend();c.focus()});
+ const c=$('#composer');c.oninput=()=>{autoSize(c);updateSend()};c.onkeydown=e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey||!e.shiftKey)){e.preventDefault();send()}}; c.onpaste=pasteImage;
+ $('#sendBtn').onclick=send;$('#plusBtn').onclick=(e)=>{e.stopPropagation();menuOpen=!menuOpen;render()};$('#modelSelect').onchange=e=>{data.settings.model=e.target.value;save();toast('Model preference saved')};
+ $$('#plusMenu [data-plus]').forEach(b=>b.onclick=()=>plusAction(b.dataset.plus)); $$('#attachments [data-remove]').forEach(b=>b.onclick=()=>{attachments.splice(+b.dataset.remove,1);render()});
+ $$('.message-actions button').forEach(b=>b.onclick=()=>messageAction(b.dataset.action,b.dataset.id)); $$('#app [data-close]').forEach(el=>el.onclick=e=>{if(el.classList.contains('close')||e.target===el)closeDialog()});
+ $$('#app [data-plan]').forEach(b=>b.onclick=()=>selectPlan(b.dataset.plan)); $('#addMemory')?.addEventListener('click',addMemory);$$('[data-forget]').forEach(b=>b.onclick=()=>{data.memories=data.memories.filter(m=>m.id!==b.dataset.forget);save();render();toast('Memory forgotten')});
+ $$('.settings-nav button').forEach(b=>b.onclick=()=>{$$('.settings-nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('#settingsPanel').innerHTML=settingsPanel(b.dataset.setting);bindSettings()});bindSettings();
+ if(activeDialog==='settings'){const nav=$('.settings-nav'),profileTab=document.createElement('button');profileTab.dataset.setting='profile';profileTab.textContent='Profile';nav.prepend(profileTab);profileTab.onclick=()=>{$$('.settings-nav button').forEach(x=>x.classList.remove('active'));profileTab.classList.add('active');$('#settingsPanel').innerHTML=profileSettingsPanel();bindProfileSettings()}}
+ $('#searchInput')?.addEventListener('input',searchChats); $$('#app [data-menu-action]').forEach(b=>b.onclick=()=>chatMenuAction(b.dataset.menuAction));
+ const box=$('#composerBox');['dragenter','dragover'].forEach(evt=>box.addEventListener(evt,e=>{e.preventDefault();$('#dropOverlay').classList.remove('hidden')}));['dragleave','drop'].forEach(evt=>box.addEventListener(evt,e=>{e.preventDefault();$('#dropOverlay').classList.add('hidden')}));box.addEventListener('drop',e=>addFiles([...e.dataTransfer.files]));
+}
+function bindSettings(){ $('#saveConnection')?.addEventListener('click',()=>{data.settings.apiUrl=$('#apiUrl').value.trim();save();$('#connectionStatus').className='status '+(data.settings.apiUrl?'ok':'warn');$('#connectionStatus').textContent=data.settings.apiUrl?'Endpoint configured for this device.':'No AI endpoint configured.';toast('Connection settings saved')});$('#testConnection')?.addEventListener('click',testConnection);$('#exportData')?.addEventListener('click',exportData);$('#importData')?.addEventListener('change',importData)}
+function profileSettingsPanel(){return `<h3>Profile</h3><p>This name is saved locally in RUVION's application data and is available in every chat.</p><div class="form-row"><label>Name</label><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#191d25;border:1px solid #343a47;border-radius:9px;padding:10px 11px"><span>${esc(profile.displayName)}</span><button class="button" id="changeName">Change name</button></div></div><div class="status ok">Local Profile · ${esc(initials(profile.displayName))}</div>`}
+function bindProfileSettings(){$('#changeName')?.addEventListener('click',()=>{const panel=$('#settingsPanel');panel.innerHTML=`<h3>Change name</h3><p>RUVION will use this name in every future conversation on this device.</p><div class="form-row"><label for="newProfileName">Name</label><input id="newProfileName" value="${esc(profile.displayName)}" maxlength="80" autocomplete="name"/></div><div class="button-row"><button class="button" id="cancelProfileName">Cancel</button><button class="button accent" id="saveProfileName">Save name</button></div>`;$('#cancelProfileName').onclick=()=>{panel.innerHTML=profileSettingsPanel();bindProfileSettings()};$('#saveProfileName').onclick=()=>saveProfile($('#newProfileName').value)})}
+function autoSize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,180)+'px'}function updateSend(){$('#sendBtn').disabled=!$('#composer').value.trim()&&!editing}
+function newChat(){let c={id:uid(),title:'New conversation',created:Date.now(),messages:[]};data.chats.unshift(c);data.active=c.id;attachments=[];editing=null;save();render();$('#composer').focus()}
+function openDialog(n){menuOpen=false;activeDialog=n;render();setTimeout(()=>$('#searchInput')?.focus(),10)}function closeDialog(){activeDialog=null;render()}
+function plusAction(kind){menuOpen=false;if(kind==='file')$('#fileInput').click();else if(kind==='image')$('#imageInput').click();else if(kind==='camera')takePhoto();else if(kind==='imagegen'||kind==='videogen'){$('#composer').value=`${kind==='imagegen'?'Generate an image of ':'Create a video of '}`;autoSize($('#composer'));updateSend();$('#composer').focus();toast(`${kind==='imagegen'?'Image':'Video'} generation will use your configured provider.`)}render()}
+$('#fileInput').onchange=e=>addFiles([...e.target.files]);$('#imageInput').onchange=e=>addFiles([...e.target.files].filter(file=>file.type.startsWith('image/')));
+function addFiles(files){for(const file of files){if(file.size>20*1024*1024){toast(`${file.name} is larger than 20 MB`);continue}let a={id:uid(),name:file.name,type:file.type,size:file.size,file};if(file.type.startsWith('image/'))a.url=URL.createObjectURL(file);attachments.push(a)}render();toast(files.length?'Attachment added':'')}
+async function takePhoto(){if(!navigator.mediaDevices?.getUserMedia){toast('Camera is not available in this browser');return}try{let stream=await navigator.mediaDevices.getUserMedia({video:true});let video=document.createElement('video');video.srcObject=stream;await video.play();let canvas=document.createElement('canvas');canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);stream.getTracks().forEach(t=>t.stop());canvas.toBlob(blob=>addFiles([new File([blob],'ruvion-photo.jpg',{type:'image/jpeg'})]));}catch{toast('Camera permission was not granted')}}
+function pasteImage(e){let item=[...e.clipboardData.items].find(i=>i.type.startsWith('image/'));if(item){e.preventDefault();addFiles([new File([item.getAsFile()],'pasted-image.png',{type:item.type})])}}
+async function send(){const input=$('#composer'),text=input.value.trim();if(!text&&!attachments.length)return;const chat=active();if(editing){let idx=chat.messages.findIndex(m=>m.id===editing);if(idx>-1)chat.messages.splice(idx);editing=null}let m={id:uid(),role:'user',text,attachments:attachments.map(({id,name,type,size,url})=>({id,name,type,size,url})),created:Date.now()};chat.messages.push(m);chat.title=chat.messages.filter(x=>x.role==='user')[0]?.text?titleFor(chat.messages.filter(x=>x.role==='user')[0].text):chat.title;attachments=[];input.value='';autoSize(input);save();render();await getReply(chat,m)}
+function imageRequest(text){return /\b(gen\w*|creat\w*|mak\w*)\b.*\b(image|picture|illustration|artwork|photo)\b/i.test(text)}
+function intentStatus(text){if(imageRequest(text))return 'RUVION will create this image through its secure server-side image service.';if(/\b(gen\w*|creat\w*|mak\w*)\b.*\b(video|animation)\b/i.test(text))return 'Video generation needs a configured provider with enabled video access and billing.';if(/\b(search|latest|today|news)\b/i.test(text))return 'RUVION can research current information in the background when available.';return ''}
+async function getReply(chat,user){let thinking={id:uid(),role:'assistant',text:'',created:Date.now(),pending:true};chat.messages.push(thinking);save();render();let reply='',status='';try{if(!data.settings.apiUrl)throw new Error('NO_ENDPOINT');const payload={messages:chat.messages.filter(m=>!m.pending).map(m=>({role:m.role,content:m.text,attachments:m.attachments?.map(a=>({name:a.name,type:a.type}))})),model:data.settings.model,metadata:{app:'RUVION',creator:'Gagan Kaushik Sammeta'}};const res=await fetch(data.settings.apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!res.ok)throw new Error('HTTP_'+res.status);let type=res.headers.get('content-type')||'';if(type.includes('application/json')){let out=await res.json();reply=out.text||out.reply||out.message||''}else reply=await res.text();if(!reply)throw new Error('EMPTY')}catch(e){if(e.message==='NO_ENDPOINT'){reply=`I’m ready to help, but this RUVION installation isn’t connected to a secure AI provider yet. Open Settings → Connection to add your server-side RUVION endpoint. Your API key should stay on that server, never in the browser.`;status=intentStatus(user.text)}else{reply=`I couldn’t reach the configured RUVION provider. Please check the secure endpoint in Settings and try again.`;status='The message remains saved locally, so you can resend it after the connection is available.'}}thinking.pending=false;thinking.text=reply;thinking.status=status;save();render()}
+function messageAction(action,id){let chat=active(),m=chat.messages.find(x=>x.id===id);if(!m)return;if(action==='copy'){navigator.clipboard?.writeText(m.text);toast('Copied to clipboard')}else if(action==='edit'){editing=id;render();$('#composer').focus()}else if(action==='resend'){let c=$('#composer');c.value=m.text;autoSize(c);updateSend();c.focus()}else if(action==='regen'){let index=chat.messages.findIndex(x=>x.id===id),previous=[...chat.messages.slice(0,index)].reverse().find(x=>x.role==='user');if(previous){chat.messages.splice(index,1);save();render();getReply(chat,previous)}}}
+function addMemory(){let v=$('#memoryText').value.trim();if(!v)return;data.memories.unshift({id:uid(),value:v,category:$('#memoryCategory').value});save();render();toast('Memory saved')}
+function exportChat(chat){let content=`# ${chat.title}\n\n`+chat.messages.filter(m=>!m.pending).map(m=>`## ${m.role==='assistant'?'RUVION':'You'}\n\n${m.text}`).join('\n\n');download(`${chat.title.replace(/[^a-z0-9]+/gi,'-').toLowerCase()||'ruvion-chat'}.md`,content,'text/markdown');toast('Chat exported as Markdown')}
+function exportData(){download('ruvion-data.json',JSON.stringify({version:1,exportedAt:new Date().toISOString(),data},null,2),'application/json');toast('RUVION data exported')}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader;r.onload=()=>{try{let x=JSON.parse(r.result);if(x.version!==1||!x.data?.chats||!Array.isArray(x.data.chats))throw Error();data=Object.assign({},defaults,x.data);data.settings=Object.assign({},defaults.settings,data.settings||{});save();closeDialog();toast('RUVION data restored')}catch{toast('That is not a valid RUVION data export')}};r.readAsText(f)}
+function download(name,text,type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+async function testConnection(){let u=$('#apiUrl').value.trim();if(!u){toast('Add an endpoint first');return}let s=$('#connectionStatus');s.textContent='Testing secure endpoint…';try{let r=await fetch(u,{method:'OPTIONS'});s.className='status '+(r.ok?'ok':'warn');s.textContent=r.ok?'Endpoint responded. Save to use it.':'Endpoint responded, but did not accept this request. Check its CORS policy.'}catch{s.className='status warn';s.textContent='Could not reach this endpoint from the browser. Check the URL and CORS configuration.'}}
+function selectPlan(plan){if(plan==='Student Plus'||plan==='Plus'||plan==='Pro'){data.entitlement='pro';data.plan='Pro';save();render();toast('Plus and Pro are free for six months. No verification or payment is required.');return}if(plan==='Free'){data.plan='Free';save();render();return}toast(`${plan} is included in the current trial.`)}
+function searchChats(e){let q=e.target.value.toLowerCase().trim(),out=$('#searchResults');if(!q){out.className='memory-empty';out.textContent='Start typing to search.';return}let results=data.chats.filter(c=>(c.title+' '+c.messages.map(m=>m.text).join(' ')).toLowerCase().includes(q));out.className='';out.innerHTML=results.length?results.map(c=>`<button class="chat-row" data-result="${c.id}"><span>${esc(c.title)}</span></button>`).join(''):'<div class="memory-empty">No conversations found.</div>';$$('[data-result]').forEach(b=>b.onclick=()=>{data.active=b.dataset.result;save();closeDialog()})}
+function chatMenuAction(a){let c=active();if(a==='rename'){let n=prompt('Rename chat',c.title);if(n?.trim()){c.title=n.trim();save();render()}}else if(a==='delete'){if(data.chats.length===1){toast('Keep at least one chat');return}if(confirm(`Delete “${c.title}”?`)){data.chats=data.chats.filter(x=>x.id!==c.id);data.active=data.chats[0].id;save();render()}}}
+function toast(msg){let t=$('#toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+data.entitlement=RUVION_PLAN_CONFIG[data.entitlement]?data.entitlement:'free';
+function currentPlan(){return RUVION_PLAN_CONFIG[data.entitlement]}
+function apiBase(){return (data.settings.apiUrl||'').replace(/\/v1\/chat\/?$/,'').replace(/\/$/,'')}
+function plansDialog(){return `<div class="overlay" data-close><section class="dialog plans"><header class="dialog-head"><div><h2>RUVION Plans</h2><p>Your current plan: ${esc(currentPlan().label)}. Payments use Razorpay test mode when configured.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="plans-grid">${Object.values(RUVION_PLAN_CONFIG).map((plan)=>`<article class="plan ${plan.id==='plus'?'featured':''}"><span class="plan-label">${plan.id==='plus'?'MOST POPULAR':''}</span><h3>${esc(plan.label.toUpperCase())}</h3><div class="price">${esc(plan.price)}</div><p>${esc(plan.description)}</p><ul>${plan.features.map(feature=>`<li>${esc(feature)}</li>`).join('')}</ul><button class="button ${plan.id==='plus'?'accent':''}" data-entitlement-plan="${plan.id}" ${data.entitlement===plan.id?'disabled':''}>${data.entitlement===plan.id?'Current Plan':esc(plan.action)}</button></article>`).join('')}</div></section></div>`}
+const legacyDialogHTML=dialogHTML;
+dialogHTML=function(){return activeDialog==='plans'?plansDialog():legacyDialogHTML()};
+const legacyBind=bind;
+bind=function(){legacyBind();$('#plansBtn span:nth-child(2)')&&( $('#plansBtn span:nth-child(2)').textContent=currentPlan().sidebarLabel );$$('[data-entitlement-plan]').forEach(button=>button.onclick=()=>beginCheckout(button.dataset.entitlementPlan))};
+messageHTML=function(message){const attachmentsHTML=message.attachments?.length?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${message.attachments.map(file=>`<span class="attachment"><span class="attachment-name">${esc(file.name)}</span></span>`).join('')}</div>`:'';const imageHTML=message.imageData?`<img src="${message.imageData}" alt="RUVION generated image" style="display:block;max-width:min(100%,640px);max-height:640px;border-radius:14px;border:1px solid #303846;margin-top:12px"/>`:'';const body=message.pending?`<div class="tool-status"><span class="spinner"></span>RUVION is thinking...</div>`:`<div class="message-text">${formatText(message.text)}</div>${imageHTML}${message.status?`<div class="notice">${esc(message.status)}</div>`:''}`;return `<article class="message ${message.role}" data-message="${message.id}">${message.role==='assistant'?`<div class="message-avatar">${nova}</div>`:''}<div class="message-body">${message.role==='assistant'?'<div class="message-meta">RUVION</div>':''}${attachmentsHTML}${body}${message.pending?'':`<div class="message-actions">${message.role==='assistant'?`<button data-action="copy" data-id="${message.id}">${icon('copy')} Copy</button><button data-action="regen" data-id="${message.id}">↻ Regenerate</button>`:`<button data-action="edit" data-id="${message.id}">${icon('edit')} Edit</button><button data-action="copy" data-id="${message.id}">${icon('copy')} Copy</button><button data-action="resend" data-id="${message.id}">↗ Resend</button>`}</div>`}</div></article>`};
+function localIdentityReply(text){const query=text.toLowerCase();if(/(what('| i)?s my name|who am i)/.test(query))return `Your name is ${profile.displayName}.`;if(/(who (created|made|developed) ruvion|ruvion.?s creator)/.test(query))return 'RUVION was created by Gagan Kaushik Sammeta.';return null}
+getReply=async function(chat,user){const response={id:uid(),role:'assistant',text:'',created:Date.now(),pending:true};chat.messages.push(response);save();render();const finish=(text,status='')=>{response.pending=false;response.text=text;response.status=status;save();render()};if(!data.settings.apiUrl){const identity=localIdentityReply(user.text);return finish(identity||'Gemini is not configured for this RUVION installation. In Settings → Connection, add the secure RUVION backend URL ending in /v1/chat. The backend needs GEMINI_API_KEY; keep that key on the backend, never in the app.','Setup required: start the RUVION backend with GEMINI_API_KEY, then save its /v1/chat address in Settings.')}try{const payload={messages:chat.messages.filter(message=>!message.pending).map(message=>({role:message.role,content:message.text,attachments:message.attachments?.map(file=>({name:file.name,type:file.type}))})),model:data.settings.model,userProfile:{profileId:profile.profileId,displayName:profile.displayName},metadata:{app:'RUVION',creator:'Gagan Kaushik Sammeta'}};const result=await fetch(data.settings.apiUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify(payload)});if(!result.ok){let detail='';try{const errorBody=await result.json();detail=errorBody.error?.message||''}catch{detail=await result.text()}return finish(`RUVION couldn’t complete that request. ${detail||`The provider returned HTTP ${result.status}.`}`,'The message is saved locally. Check the secure Gemini backend configuration and resend.')}const reader=result.body?.getReader();if(!reader)return finish('RUVION received a response without a readable stream.','The secure backend must return a streaming response.');const decoder=new TextDecoder();let buffer='';let text='';while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const events=buffer.split('\n\n');buffer=events.pop()||'';for(const event of events){const line=event.split('\n').find(item=>item.startsWith('data: '));if(!line)continue;const chunk=JSON.parse(line.slice(6));if(chunk.delta){text+=chunk.delta;response.text=text;response.pending=false;render()}if(chunk.error)throw new Error(chunk.error)}}return finish(text||'Gemini returned no text for this request.','Try again or check the configured model.')}catch(error){return finish(`RUVION couldn’t complete that request. ${error.message||'Unknown connection error.'}`,'The message is saved locally. Check the backend URL, CORS configuration, and Gemini credentials.')}};
+async function beginCheckout(planId){const plan=RUVION_PLAN_CONFIG[planId];if(plan.futureOnly){toast('Student verification coming soon.');return}if(planId==='free')return;if(!apiBase()){toast("Payments aren't configured yet.");return}try{const request=await fetch(`${apiBase()}/v1/billing/checkout`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:planId,profileId:profile.profileId})});const result=await request.json();if(!request.ok)throw new Error(result.error?.message||'Payments are not available.');if(!result.checkoutUrl)throw new Error("Payments aren't configured yet.");window.open(result.checkoutUrl,'_blank','noopener');toast('Razorpay test checkout opened. Your plan changes only after a verified webhook.')}catch(error){toast(error.message||"Payments aren't configured yet.")}}
+async function refreshEntitlement(){if(!apiBase()||!profile.profileId)return;try{const result=await fetch(`${apiBase()}/v1/entitlements/${encodeURIComponent(profile.profileId)}`);if(!result.ok)return;const entitlement=await result.json();if(RUVION_PLAN_CONFIG[entitlement.plan]&&data.entitlement!==entitlement.plan){data.entitlement=entitlement.plan;save();render();toast(`Plan updated to ${RUVION_PLAN_CONFIG[entitlement.plan].label}`)}}catch{/* Entitlements remain local until the backend is reachable. */}}
+document.addEventListener('click',e=>{if(menuOpen&&!e.target.closest('#plusMenu')&&!e.target.closest('#plusBtn')){menuOpen=false;render()}if(!e.target.closest('#chatMenu')&&!e.target.closest('.popover'))$('.popover')?.remove()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(activeDialog)closeDialog();else if(menuOpen){menuOpen=false;render()}}if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openDialog('search')}if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='n'){e.preventDefault();newChat()}});render();
+loadProfile().then(refreshEntitlement);
+// The desktop app has one fixed public service address. End users never provide
+// API addresses or keys; server credentials stay with the deployed RUVION API.
+const ruvionSettingsPanel=settingsPanel;
+settingsPanel=function(name){if(name==='connection')return `<h3>RUVION service</h3><p>This app uses RUVION’s public secure service. You never need to add an API key or endpoint here.</p><div class="status ok">Secure service address configured by RUVION.</div><p style="margin-top:16px">If Gemini is not configured on the service, chat will explain that in the conversation.</p>`;return ruvionSettingsPanel(name)};
+const ruvionDialogHTML=dialogHTML;
+dialogHTML=function(){return ruvionDialogHTML().replace('data-setting="connection">Connection','data-setting="connection">RUVION service')};
+// Razorpay is intentionally fail-closed: a missing/unreachable billing service
+// never resembles a charge or a successful upgrade.
+beginCheckout=async function(planId){const plan=RUVION_PLAN_CONFIG[planId];if(data.entitlement==='pro'&&(planId==='plus'||planId==='pro'||planId==='student_pro')){toast('Included free for six months. You can choose a paid upgrade afterward.');return}if(plan?.futureOnly){toast('Included in the universal six-month trial.');return}if(planId==='free')return;try{const request=await fetch(`${apiBase()}/v1/billing/checkout`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:planId,profileId:profile.profileId})});const result=await request.json();if(!request.ok||!result.checkoutUrl){toast("Payments aren't configured yet.");return}window.open(result.checkoutUrl,'_blank','noopener');toast('Optional Razorpay checkout opened. Your plan changes only after a verified webhook.')}catch(error){toast("Payments aren't configured yet.")}};
+// The fixed-service chat path never asks the person using RUVION to configure an API.
+getReply=async function(chat,user){const response={id:uid(),role:'assistant',text:'',created:Date.now(),pending:true};chat.messages.push(response);save();render();const finish=(text,status='')=>{response.pending=false;response.text=text;response.status=status;save();render()};try{const generateImage=imageRequest(user.text);const payload={messages:chat.messages.filter(message=>!message.pending).map(message=>({role:message.role,content:message.text})),model:data.settings.model,generateImage,deviceId:profile.profileId,userProfile:{profileId:profile.profileId,displayName:profile.displayName},metadata:{app:'RUVION',creator:'Gagan Kaushik Sammeta'}};const result=await fetch(window.RUVION_API_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify(payload)});if(!result.ok){let detail='';try{detail=(await result.json()).error?.message||''}catch{}return finish(`RUVION couldn’t complete that request. ${detail||'The public RUVION service is unavailable.'}`,'No API key or setup is needed in the desktop app.')}const reader=result.body?.getReader();if(!reader)throw new Error('The public service did not return a readable stream.');const decoder=new TextDecoder();let buffer='',text='';while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const events=buffer.split('\n\n');buffer=events.pop()||'';for(const event of events){const line=event.split('\n').find(item=>item.startsWith('data: '));if(!line)continue;const chunk=JSON.parse(line.slice(6));if(chunk.delta){text+=chunk.delta;response.text=text;response.pending=false}if(chunk.image){response.imageData=chunk.image}if(chunk.delta||chunk.image)render();if(chunk.error)throw new Error(chunk.error)}}finish(text||'RUVION returned no text for this request.',text?'':'Please try again later.')}catch(error){finish(`RUVION couldn’t complete that request. ${error.message||'The public service is unavailable.'}`,'No API key or setup is needed in the desktop app.')}};
+// Keep the reading position stable. Only a newly sent/re-generated message is
+// allowed to follow the stream to the bottom; browsing older messages never jumps.
+(() => {
+  const nativeRAF = window.requestAnimationFrame.bind(window);
+  let followStream = false;
+  let followTimer;
+  const startFollowing = () => {
+    followStream = true;
+    clearTimeout(followTimer);
+    followTimer = setTimeout(() => { followStream = false; }, 45000);
+  };
+  window.requestAnimationFrame = callback => nativeRAF(() => { if (followStream) callback(); });
+  document.addEventListener('click', event => {
+    if (event.target.closest('#sendBtn') || event.target.closest('[data-action="regen"]')) startFollowing();
+    if (event.target.closest('[data-chat]')) followStream = false;
+  }, true);
+  document.addEventListener('keydown', event => {
+    if ((event.metaKey || event.ctrlKey || !event.shiftKey) && event.key === 'Enter' && event.target?.id === 'composer') startFollowing();
+  }, true);
+})();
+
+// A direct, accessible delete control on every saved chat. The original menu
+// remains available too, but deleting a chat should never be hard to discover.
+(() => {
+  const installDeleteControls = () => {
+    document.querySelectorAll('.chat-row[data-chat]').forEach(row => {
+      if (row.querySelector('[data-quick-delete]')) return;
+      const remove = document.createElement('span');
+      remove.className = 'chat-dots';
+      remove.dataset.quickDelete = row.dataset.chat;
+      remove.setAttribute('role', 'button');
+      remove.setAttribute('tabindex', '0');
+      remove.setAttribute('aria-label', 'Delete chat');
+      remove.title = 'Delete chat';
+      remove.innerHTML = icon('trash');
+      const deleteCurrent = event => {
+        event.preventDefault();
+        event.stopPropagation();
+        const chat = data.chats.find(item => item.id === remove.dataset.quickDelete);
+        if (!chat) return;
+        if (data.chats.length === 1) return toast('Keep at least one chat');
+        if (confirm(`Delete “${chat.title}”?`)) {
+          data.chats = data.chats.filter(item => item.id !== chat.id);
+          data.active = data.chats[0].id;
+          save();
+          render();
+        }
+      };
+      remove.addEventListener('click', deleteCurrent);
+      remove.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') deleteCurrent(event); });
+      row.append(remove);
+    });
+  };
+  new MutationObserver(installDeleteControls).observe(document.getElementById('app'), {childList:true, subtree:true});
+  installDeleteControls();
+})();
+
+// Reference photos stay only in memory for the current generation request.
+// They are not written to local chat history or the native profile file.
+const ruvionReferenceImages = new Map();
+function photoGuidedImageRequest(text, references) {
+  return references.length > 0 && /\b(put|place|make|create|generate|show|turn|transform|edit|wear)\b/i.test(text);
+}
+function encodeReferencePhoto(attachment) {
+  return new Promise((resolve, reject) => {
+    if (!attachment.file || !attachment.type.startsWith('image/')) return resolve(null);
+    if (attachment.file.size > 6_000_000) return reject(new Error('Reference photos must be 6 MB or smaller.'));
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('RUVION could not read that photo.'));
+    reader.onload = () => {
+      const value = String(reader.result || '');
+      const comma = value.indexOf(',');
+      resolve(comma > -1 ? { mimeType: attachment.type, data: value.slice(comma + 1) } : null);
+    };
+    reader.readAsDataURL(attachment.file);
+  });
+}
+send = async function() {
+  const input = $('#composer'), text = input.value.trim();
+  if (!text && !attachments.length) return;
+  const chat = active();
+  let references;
+  try { references = (await Promise.all(attachments.filter(item => item.type.startsWith('image/')).map(encodeReferencePhoto))).filter(Boolean); }
+  catch (error) { toast(error.message); return; }
+  if (editing) { const index = chat.messages.findIndex(item => item.id === editing); if (index > -1) chat.messages.splice(index); editing = null; }
+  const message = { id: uid(), role: 'user', text, attachments: attachments.map(({id,name,type,size,url}) => ({id,name,type,size,url})), created: Date.now() };
+  if (references.length) ruvionReferenceImages.set(message.id, references);
+  chat.messages.push(message);
+  chat.title = chat.messages.filter(item => item.role === 'user')[0]?.text ? titleFor(chat.messages.filter(item => item.role === 'user')[0].text) : chat.title;
+  attachments = []; input.value = ''; autoSize(input); save(); render(); await getReply(chat, message);
+};
+getReply = async function(chat, user) {
+  const response = {id:uid(), role:'assistant', text:'', created:Date.now(), pending:true};
+  const references = ruvionReferenceImages.get(user.id) || [];
+  chat.messages.push(response); save(); render();
+  const finish = (text, status = '') => { response.pending = false; response.text = text; response.status = status; ruvionReferenceImages.delete(user.id); save(); render(); };
+  try {
+    const generateImage = imageRequest(user.text) || photoGuidedImageRequest(user.text, references);
+    const payload = {messages:chat.messages.filter(message => !message.pending).map(message => ({role:message.role,content:message.text})), model:data.settings.model, generateImage, referenceImages:references, deviceId:profile.profileId, userProfile:{profileId:profile.profileId,displayName:profile.displayName},metadata:{app:'RUVION',creator:'Gagan Kaushik Sammeta'}};
+    const result = await fetch(window.RUVION_API_URL, {method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify(payload)});
+    if (!result.ok) { let detail=''; try { detail=(await result.json()).error?.message||''; } catch {} return finish(`RUVION couldn’t complete that request. ${detail||'The public RUVION service is unavailable.'}`,'No API key or setup is needed in the desktop app.'); }
+    const reader = result.body?.getReader(); if (!reader) throw new Error('The public service did not return a readable stream.');
+    const decoder = new TextDecoder(); let buffer='', text='';
+    while (true) { const {value,done} = await reader.read(); if (done) break; buffer += decoder.decode(value,{stream:true}); const events=buffer.split('\n\n'); buffer=events.pop()||''; for (const event of events) { const line=event.split('\n').find(item=>item.startsWith('data: ')); if(!line) continue; const chunk=JSON.parse(line.slice(6)); if(chunk.delta){text+=chunk.delta;response.text=text;response.pending=false;} if(chunk.image) response.imageData=chunk.image; if(chunk.delta||chunk.image) render(); if(chunk.error) throw new Error(chunk.error); } }
+    finish(text||'RUVION returned no text for this request.',text?'':'Please try again later.');
+  } catch (error) { finish(`RUVION couldn’t complete that request. ${error.message||'The public service is unavailable.'}`,'No API key or setup is needed in the desktop app.'); }
+};
+
+// Keep the add menu compact: every displayed action works in this build.
+plusMenu = function(){ return `<div class="menu" id="plusMenu"><button data-plus="file">${icon('upload')} Upload file</button><button data-plus="image">${icon('image')} Upload image</button><button data-plus="imagegen">${icon('wand')} Generate image</button></div>`; };
+const ruvionEphemeralFiles = new Map();
+function encodeReadableFile(attachment) {
+  return new Promise((resolve, reject) => {
+    if (!attachment.file || attachment.type.startsWith('image/')) return resolve(null);
+    if (attachment.file.size > 6_000_000) return reject(new Error('Files must be 6 MB or smaller.'));
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error(`RUVION could not read ${attachment.name}.`));
+    reader.onload = () => { const value=String(reader.result||''), comma=value.indexOf(','); resolve(comma > -1 ? {name:attachment.name,mimeType:attachment.type||'text/plain',data:value.slice(comma+1)} : null); };
+    reader.readAsDataURL(attachment.file);
+  });
+}
+send = async function() {
+  const input=$('#composer'), text=input.value.trim();
+  if(!text&&!attachments.length) return;
+  const chat=active(); let references, files;
+  try {
+    references=(await Promise.all(attachments.filter(item=>item.type.startsWith('image/')).map(encodeReferencePhoto))).filter(Boolean);
+    files=(await Promise.all(attachments.filter(item=>!item.type.startsWith('image/')).map(encodeReadableFile))).filter(Boolean);
+  } catch(error) { toast(error.message); return; }
+  if(editing){const index=chat.messages.findIndex(item=>item.id===editing);if(index>-1)chat.messages.splice(index);editing=null;}
+  const message={id:uid(),role:'user',text,attachments:attachments.map(({id,name,type,size,url})=>({id,name,type,size,url})),created:Date.now()};
+  if(references.length)ruvionReferenceImages.set(message.id,references);
+  if(files.length)ruvionEphemeralFiles.set(message.id,files);
+  chat.messages.push(message);chat.title=chat.messages.filter(item=>item.role==='user')[0]?.text?titleFor(chat.messages.filter(item=>item.role==='user')[0].text):chat.title;
+  attachments=[];input.value='';autoSize(input);save();render();await getReply(chat,message);
+};
+getReply = async function(chat, user) {
+  const response={id:uid(),role:'assistant',text:'',created:Date.now(),pending:true};
+  const references=ruvionReferenceImages.get(user.id)||[], files=ruvionEphemeralFiles.get(user.id)||[];
+  chat.messages.push(response);save();render();
+  const finish=(text,status='')=>{response.pending=false;response.text=text;response.status=status;ruvionReferenceImages.delete(user.id);ruvionEphemeralFiles.delete(user.id);save();render();};
+  try {
+    const generateImage=imageRequest(user.text)||photoGuidedImageRequest(user.text,references);
+    const payload={messages:chat.messages.filter(message=>!message.pending).map(message=>({role:message.role,content:message.text})),model:data.settings.model,generateImage,referenceImages:references,files,deviceId:profile.profileId,userProfile:{profileId:profile.profileId,displayName:profile.displayName},metadata:{app:'RUVION',creator:'Gagan Kaushik Sammeta'}};
+    const result=await fetch(window.RUVION_API_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify(payload)});
+    if(!result.ok){let detail='';try{detail=(await result.json()).error?.message||'';}catch{}return finish(`RUVION couldn’t complete that request. ${detail||'The public RUVION service is unavailable.'}`,'No API key or setup is needed in the desktop app.');}
+    const reader=result.body?.getReader();if(!reader)throw new Error('The public service did not return a readable stream.');const decoder=new TextDecoder();let buffer='',text='';
+    while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const events=buffer.split('\n\n');buffer=events.pop()||'';for(const event of events){const line=event.split('\n').find(item=>item.startsWith('data: '));if(!line)continue;const chunk=JSON.parse(line.slice(6));if(chunk.delta){text+=chunk.delta;response.text=text;response.pending=false;}if(chunk.image)response.imageData=chunk.image;if(chunk.delta||chunk.image)render();if(chunk.error)throw new Error(chunk.error);}}
+    finish(text||'RUVION returned no text for this request.',text?'':'Please try again later.');
+  }catch(error){finish(`RUVION couldn’t complete that request. ${error.message||'The public service is unavailable.'}`,'No API key or setup is needed in the desktop app.');}
+};
+
+// Gemini Omni generation: the video stays in the current local chat only. It is
+// never represented as a successful result unless the server returned playable media.
+function videoRequest(text) {
+  return /\b(gen\w*|creat\w*|mak\w*)\b.*\b(video|animation|clip|film)\b/i.test(text);
+}
+plusMenu = function(){ return `<div class="menu" id="plusMenu"><button data-plus="file">${icon('upload')} Upload file</button><button data-plus="image">${icon('image')} Upload image</button><button data-plus="imagegen">${icon('wand')} Generate image</button><button data-plus="videogen">${icon('video')} Generate video</button></div>`; };
+messageHTML = function(message) {
+  const attachmentsHTML=message.attachments?.length?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${message.attachments.map(file=>`<span class="attachment"><span class="attachment-name">${esc(file.name)}</span></span>`).join('')}</div>`:'';
+  const imageHTML=message.imageData?`<img src="${message.imageData}" alt="RUVION generated image" style="display:block;max-width:min(100%,640px);max-height:640px;border-radius:14px;border:1px solid #303846;margin-top:12px"/>`:'';
+  const videoHTML=message.videoData?`<video controls playsinline src="${message.videoData}" style="display:block;width:min(100%,640px);max-height:640px;border-radius:14px;border:1px solid #303846;margin-top:12px;background:#000">Your browser cannot play this RUVION-generated video.</video>`:'';
+  const body=message.pending?`<div class="tool-status"><span class="spinner"></span>RUVION is thinking...</div>`:`<div class="message-text">${formatText(message.text)}</div>${imageHTML}${videoHTML}${message.status?`<div class="notice">${esc(message.status)}</div>`:''}`;
+  return `<article class="message ${message.role}" data-message="${message.id}">${message.role==='assistant'?`<div class="message-avatar">${nova}</div>`:''}<div class="message-body">${message.role==='assistant'?'<div class="message-meta">RUVION</div>':''}${attachmentsHTML}${body}${message.pending?'':`<div class="message-actions">${message.role==='assistant'?`<button data-action="copy" data-id="${message.id}">${icon('copy')} Copy</button><button data-action="regen" data-id="${message.id}">↻ Regenerate</button>`:`<button data-action="edit" data-id="${message.id}">${icon('edit')} Edit</button><button data-action="copy" data-id="${message.id}">${icon('copy')} Copy</button><button data-action="resend" data-id="${message.id}">↗ Resend</button>`}</div>`}</div></article>`;
+};
+getReply = async function(chat, user) {
+  const response={id:uid(),role:'assistant',text:'',created:Date.now(),pending:true};
+  const references=ruvionReferenceImages.get(user.id)||[], files=ruvionEphemeralFiles.get(user.id)||[];
+  chat.messages.push(response);save();render();
+  const finish=(text,status='')=>{response.pending=false;response.text=text;response.status=status;ruvionReferenceImages.delete(user.id);ruvionEphemeralFiles.delete(user.id);save();render();};
+  try {
+    const generateVideo=videoRequest(user.text);
+    const generateImage=!generateVideo&&(imageRequest(user.text)||photoGuidedImageRequest(user.text,references));
+    const payload={messages:chat.messages.filter(message=>!message.pending).map(message=>({role:message.role,content:message.text})),model:data.settings.model,mode:data.settings.model,generateImage,generateVideo,referenceImages:references,files,deviceId:profile.profileId,userProfile:{profileId:profile.profileId,displayName:profile.displayName},metadata:{app:'RUVION',creator:'Gagan Kaushik Sammeta'}};
+    const result=await fetch(window.RUVION_API_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'text/event-stream'},body:JSON.stringify(payload)});
+    if(!result.ok){let detail='';try{detail=(await result.json()).error?.message||'';}catch{}return finish(`RUVION couldn’t complete that request. ${detail||'The public RUVION service is unavailable.'}`,'No API key or setup is needed in the desktop app.');}
+    const reader=result.body?.getReader();if(!reader)throw new Error('The public service did not return a readable stream.');const decoder=new TextDecoder();let buffer='',text='';
+    while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const events=buffer.split('\n\n');buffer=events.pop()||'';for(const event of events){const line=event.split('\n').find(item=>item.startsWith('data: '));if(!line)continue;const chunk=JSON.parse(line.slice(6));if(chunk.delta){text+=chunk.delta;response.text=text;response.pending=false;}if(chunk.image)response.imageData=chunk.image;if(chunk.video)response.videoData=chunk.video;if(chunk.delta||chunk.image||chunk.video)render();if(chunk.error)throw new Error(chunk.error);}}
+    finish(text||'RUVION returned no media for this request.',text?'':'Please try again later.');
+  }catch(error){finish(`RUVION couldn’t complete that request. ${error.message||'The public service is unavailable.'}`,'No API key or setup is needed in the desktop app.');}
+};
+
+// Keep deletion outside the chat-selection button. Nested controls are unreliable
+// in WKWebView, so every saved conversation gets a separate visible trash button.
+const ruvionBaseRender = render;
+let ruvionPendingDelete = '';
+render = function() {
+  ruvionBaseRender();
+  document.querySelectorAll('.chat-row[data-chat]').forEach(row => {
+    if (row.parentElement?.classList.contains('chat-entry')) return;
+    const entry = document.createElement('div');
+    entry.className = 'chat-entry';
+    row.parentNode.insertBefore(entry, row);
+    entry.append(row);
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'chat-delete-button';
+    remove.dataset.deleteChat = row.dataset.chat;
+    remove.setAttribute('aria-label', 'Delete chat');
+    remove.title = 'Delete chat';
+    remove.innerHTML = icon('trash');
+    remove.onclick = event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const chat = data.chats.find(item => item.id === remove.dataset.deleteChat);
+      if (!chat) return;
+      if (data.chats.length === 1) return toast('Keep at least one chat');
+      if (ruvionPendingDelete !== chat.id) {
+        ruvionPendingDelete = chat.id;
+        remove.textContent = 'Delete?';
+        remove.setAttribute('aria-label', `Confirm delete ${chat.title}`);
+        remove.title = 'Click again to delete';
+        remove.style.width = '58px';
+        setTimeout(() => { if (ruvionPendingDelete === chat.id) { ruvionPendingDelete = ''; render(); } }, 3500);
+        return;
+      }
+      ruvionPendingDelete = '';
+      data.chats = data.chats.filter(item => item.id !== chat.id);
+      if (data.active === chat.id) data.active = data.chats[0].id;
+      save();
+      render();
+    };
+    entry.append(remove);
+  });
+};
+const ruvionDeleteStyle = document.createElement('style');
+ruvionDeleteStyle.textContent = '.chat-entry{display:flex;align-items:center;gap:3px}.chat-entry .chat-row{flex:1;width:auto}.chat-entry .chat-row .chat-dots{display:none!important}.chat-delete-button{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border:1px solid #3a4353;border-radius:8px;background:#202633;color:#c9d2e1;padding:5px}.chat-delete-button:hover{background:#49242b;border-color:#9a4e5a;color:#fff}.chat-delete-button .icon{width:15px;height:15px}';
+document.head.append(ruvionDeleteStyle);
+
+// Show the actual server-side device allowance, not a made-up account quota.
+let ruvionRateRemaining = null;
+const nativeRuvionFetch = window.fetch.bind(window);
+window.fetch = async (...args) => {
+  const result = await nativeRuvionFetch(...args);
+  const url = typeof args[0] === 'string' ? args[0] : args[0]?.url || '';
+  if (url.includes('/v1/chat')) {
+    const value = result.headers.get('X-RUVION-RateLimit-Remaining');
+    const limit = result.headers.get('X-RUVION-RateLimit-Limit') || '100';
+    const chatValue = result.headers.get('X-RUVION-ChatLimit-Remaining');
+    if (chatValue !== null) {
+      ruvionRateRemaining = `${chatValue} chats left · ${limit}/min protection`;
+      const usage = document.querySelector('.ruvion-usage');
+      if (usage) usage.textContent = `AI limit · ${ruvionRateRemaining}`;
+    } else if (value !== null) {
+      ruvionRateRemaining = `${value} left · ${limit}/min protection`;
+      const usage = document.querySelector('.ruvion-usage');
+      if (usage) usage.textContent = `AI limit · ${ruvionRateRemaining}`;
+    }
+  }
+  return result;
+};
+const ruvionRenderWithUsage = render;
+render = function() {
+  ruvionRenderWithUsage();
+  const footer = document.querySelector('.side-footer');
+  if (!footer) return;
+  let usage = footer.querySelector('.ruvion-usage');
+  if (!usage) { usage = document.createElement('div'); usage.className = 'ruvion-usage'; footer.insertBefore(usage, footer.firstChild); }
+  usage.textContent = ruvionRateRemaining ? `AI limit · ${ruvionRateRemaining}` : 'AI limit · checking…';
+};
+const ruvionUsageStyle = document.createElement('style');
+ruvionUsageStyle.textContent = '.ruvion-usage{font-size:11px;color:#78859a;padding:4px 10px 8px;border-bottom:1px solid #202530;margin-bottom:4px}';
+document.head.append(ruvionUsageStyle);
+
+// Final plan copy is kept here as a single UI source so an older cached plan
+// script cannot put the previous request-count wording back on screen.
+plansDialog = function(){ return `<div class="overlay" data-close><section class="dialog plans"><header class="dialog-head"><div><h2>RUVION Plans</h2><p>Your current plan: ${esc(currentPlan().label)}. Everyone receives Plus and Pro free for six months; upgrades are optional afterward.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="plans-grid">${planCard('Free','₹0','Basic access after the free trial.',['500 chat messages per day','5 image/video/file credits per day','No payment required'],'Current Plan')}${planCard('Plus','₹0 for 6 months','Free for everyone now; ₹499/month only if you choose to upgrade later.',['1,000 chat messages per day','10 image/video/file credits per day','Optional paid upgrade after six months'],'Included',true)}${planCard('Student Plus','Included','No student upload or approval is required for the universal trial.',['Plus and Pro included for six months','No payment required','Optional upgrade afterward'],'Included')}${planCard('Pro','₹0 for 6 months','Free for everyone now; ₹1,499/month only if you choose to upgrade later.',['10,000 chat messages per day','25 image/video/file credits per day','Optional paid upgrade after six months'],'Included')}</div></section></div>`; };
+// Student verification is an explicit, privacy-aware submission flow. It collects
+// the ID/selfie only in memory for this review session; it never activates a plan
+// locally or pretends that OCR/face matching has happened.
+let studentIdFile = null, studentSelfieFile = null;
+const normalizeVerificationName = value => String(value || '').trim().toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ');
+function studentVerificationDialog(){
+  const prior=data.studentVerification||{};
+  const status=prior.status==='pending_review'?`<div class="status warn">Student ID submitted for review. Student offers stay inactive until a verified reviewer approves it.</div>`:'';
+  return `<div class="overlay" data-close><section class="dialog" style="width:min(700px,100%)"><header class="dialog-head"><div><h2>Student verification</h2><p>Upload your student ID first, then match your face or use the school-question fallback.</p></div><button class="close" data-close>${icon('x')}</button></header><div class="dialog-content"><div class="status">For privacy, files stay in this session until you submit. RUVION will not activate a student offer from a filename or an unverified upload.</div>${status}<div class="form-row"><label for="verificationName">Name printed on the student ID</label><input id="verificationName" maxlength="80" value="${esc(prior.name||profile.displayName)}" placeholder="Enter the name exactly as shown on your ID"/><span class="form-help">It must match your saved RUVION profile name: <b>${esc(profile.displayName)}</b>.</span></div><div class="form-row"><label>1. Student ID card</label><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="button" id="studentIdPick">${icon('upload')} Choose student ID</button><span id="studentIdLabel" class="form-help">${esc(studentIdFile?.name||prior.idName||'No ID selected')}</span></div><span class="form-help">Accepted: photo or PDF. Cover unrelated numbers before submitting if they are not needed for verification.</span><input id="studentIdFile" type="file" accept="image/*,.pdf" hidden /></div><label style="display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--soft);margin:4px 0 12px"><input id="idCardHasPhoto" type="checkbox" style="margin-top:2px" checked/>My student ID includes my photo</label><div id="faceVerificationFields" class="form-row"><label>2. Face scan / selfie</label><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="button" id="studentSelfieCapture">${icon('camera')} Take selfie</button><button class="button" id="studentSelfiePick">${icon('image')} Upload selfie</button><span id="studentSelfieLabel" class="form-help">${esc(studentSelfieFile?.name||prior.selfieName||'No selfie selected')}</span></div><span class="form-help">Use a clear, recent selfie with your face visible. The verification service compares it with the ID photo.</span><input id="studentSelfieFile" type="file" accept="image/*" capture="user" hidden /></div><div id="schoolQuestionFields" class="form-row" style="display:none"><label>Backup questions (used only when the ID has no photo)</label><input id="schoolName" placeholder="School or college name"/><input id="studentNumber" placeholder="Student ID or roll number"/><input id="enrollmentYear" inputmode="numeric" placeholder="Enrollment year"/><span class="form-help">Your school can confirm these details during review. Do not enter passwords or unrelated personal information.</span></div><label style="display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--soft);margin-top:8px"><input id="verificationConsent" type="checkbox" style="margin-top:2px"/>I consent to RUVION using these details and images only for student verification and understand that access is not granted until review succeeds.</label><div id="verificationStatus"></div><div class="button-row"><button class="button" data-close>Cancel</button><button class="button accent" id="submitStudentVerification">Submit for verification</button></div></div></section></div>`;
+}
+const uploadOnlyStudentVerificationDialog = studentVerificationDialog;
+studentVerificationDialog = function(){ return uploadOnlyStudentVerificationDialog().replace('Upload your student ID first, then match your face or use the school-question fallback.','Upload your student ID for review. No driver’s license or paid face check is required.'); };
+async function captureStudentSelfie(){
+  if(!navigator.mediaDevices?.getUserMedia){$('#studentSelfieFile')?.click();return}
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}});
+    const video=document.createElement('video');video.srcObject=stream;await video.play();
+    const canvas=document.createElement('canvas');canvas.width=video.videoWidth||640;canvas.height=video.videoHeight||480;canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+    stream.getTracks().forEach(track=>track.stop());
+    canvas.toBlob(blob=>{if(blob){studentSelfieFile=new File([blob],'student-selfie.jpg',{type:'image/jpeg'});const label=$('#studentSelfieLabel');if(label)label.textContent=studentSelfieFile.name;toast('Selfie captured for this verification session')}},'image/jpeg',.9);
+  }catch{$('#studentSelfieFile')?.click()}
+}
+function bindStudentVerification(){
+  const idInput=$('#studentIdFile'), selfieInput=$('#studentSelfieFile');
+  $('#studentIdPick')?.addEventListener('click',()=>idInput?.click());
+  $('#studentSelfiePick')?.addEventListener('click',()=>selfieInput?.click());
+  $('#studentSelfieCapture')?.addEventListener('click',captureStudentSelfie);
+  idInput?.addEventListener('change',event=>{studentIdFile=event.target.files?.[0]||null;const label=$('#studentIdLabel');if(label)label.textContent=studentIdFile?.name||'No ID selected'});
+  selfieInput?.addEventListener('change',event=>{studentSelfieFile=event.target.files?.[0]||null;const label=$('#studentSelfieLabel');if(label)label.textContent=studentSelfieFile?.name||'No selfie selected'});
+  const hasPhoto=$('#idCardHasPhoto');
+  const toggleVerificationMethod=()=>{const face=$('#faceVerificationFields'),questions=$('#schoolQuestionFields');if(face)face.style.display=hasPhoto?.checked?'':'none';if(questions)questions.style.display=hasPhoto?.checked?'none':''};
+  hasPhoto?.addEventListener('change',toggleVerificationMethod);toggleVerificationMethod();
+  // Upload-only student review: no paid face scan or government-ID flow.
+  const faceFields=$('#faceVerificationFields'), questionFields=$('#schoolQuestionFields');
+  if(faceFields) faceFields.style.display='none';
+  if(questionFields) questionFields.style.display='none';
+  if(hasPhoto?.closest('label')) hasPhoto.closest('label').style.display='none';
+  $('#submitStudentVerification')?.addEventListener('click',async()=>{
+    const name=$('#verificationName')?.value.trim()||'';const consent=$('#verificationConsent')?.checked;
+    const status=$('#verificationStatus');
+    if(['pending_review','approved','in_progress'].includes(data.studentVerification?.status)){if(status)status.innerHTML='<div class="status warn">This profile has already submitted a student verification. It can only be redeemed once.</div>';return}
+    const hasIdPhoto=!!$('#idCardHasPhoto')?.checked;
+    const questionAnswers=[$('#schoolName')?.value.trim(),$('#studentNumber')?.value.trim(),$('#enrollmentYear')?.value.trim()];
+    if(!name||!studentIdFile||!consent){if(status)status.innerHTML='<div class="status warn">Enter the ID name, upload your student ID, and accept the consent notice.</div>';return}
+    if(normalizeVerificationName(name)!==normalizeVerificationName(profile.displayName)){if(status)status.innerHTML='<div class="status warn">The ID name must match your saved RUVION profile name before you can submit.</div>';return}
+    const verification={status:'pending_review',method:'student_id_upload',name,idName:studentIdFile.name,selfieName:hasIdPhoto?studentSelfieFile?.name||'':'',submittedAt:new Date().toISOString()};
+    data.studentVerification=verification;save();activeDialog='studentVerification';render();toast('Student ID submitted for review. No plan is activated until a verified review approves it.');
+  });
+}
+const dialogWithStudentVerification=dialogHTML;
+dialogHTML=function(){return activeDialog==='studentVerification'?studentVerificationDialog():dialogWithStudentVerification()};
+const bindWithStudentVerification=bind;
+bind=function(){bindWithStudentVerification();if(activeDialog==='studentVerification')bindStudentVerification()};
+const planWithStudentVerification=plansDialog;
+plansDialog=function(){return planWithStudentVerification().replace('Student verification coming soon','Verify with student ID + selfie').replace('Student verification coming soon','Verify student')};
+
+// Native Work Mode actions. The native shell keeps this bridge allow-listed and
+// asks for confirmation before writing files or running an Xcode build.
+const ruvionWorkPending = new Map();
+window.__ruvionWorkResult = function(id, result) {
+  const resolve = ruvionWorkPending.get(id); if (!resolve) return;
+  ruvionWorkPending.delete(id); resolve(result);
+};
+function nativeWork(action, payload = {}) {
+  return new Promise(resolve => {
+    const id = uid(); ruvionWorkPending.set(id, resolve);
+    const handler = window.webkit?.messageHandlers?.ruvionWork;
+    if (!handler) { ruvionWorkPending.delete(id); resolve({ok:false,error:'Native Work Mode is unavailable in this build.'}); return; }
+    handler.postMessage({id, action, ...payload});
+    setTimeout(() => { if (ruvionWorkPending.has(id)) { ruvionWorkPending.delete(id); resolve({ok:false,error:'Work Mode timed out.'}); } }, 120000);
+  });
+}
+async function tryNativeWorkCommand(text) {
+  if (!/^RUVION Work/i.test(data.settings.model || '')) return null;
+  const open = text.match(/^(?:please\s+)?(?:open|launch)\s+(xcode|safari|chrome|terminal|textedit|finder)\s*$/i);
+  if (open) {
+    const bundles = {xcode:'com.apple.dt.Xcode',safari:'com.apple.Safari',chrome:'com.google.Chrome',terminal:'com.apple.Terminal',textedit:'com.apple.TextEdit',finder:'com.apple.finder'};
+    const result = await nativeWork('openApp', {bundleID:bundles[open[1].toLowerCase()]});
+    return result.ok ? `Opened ${open[1]}.` : `Work Mode couldn’t open it. ${result.error||''}`;
+  }
+  const build = text.match(/^(?:please\s+)?build\s+(.+\.xcodeproj)\s*$/i);
+  if (build) {
+    const result = await nativeWork('buildProject', {relativePath:build[1]});
+    if (result.ok) return `Build completed for ${build[1]}.`;
+    return result.cancelled ? 'Build cancelled.' : `Build failed. ${result.error||''}\n\n${result.output||''}`;
+  }
+  return null;
+}
+const ruvionNativeAwareReply = getReply;
+getReply = async function(chat, user) {
+  const nativeResult = await tryNativeWorkCommand(user.text.trim());
+  if (nativeResult !== null) {
+    const response={id:uid(),role:'assistant',text:nativeResult,created:Date.now(),pending:false};
+    chat.messages.push(response); save(); render(); return;
+  }
+  return ruvionNativeAwareReply(chat, user);
+};
+</script>
+</body></html>
