@@ -1,0 +1,6 @@
+{
+  "free": {"id": "free", "price": "₹0", "label": "Free"},
+  "plus": {"id": "plus", "price": "₹499/month", "label": "RUVION Plus"},
+  "student_pro": {"id": "student_pro", "price": "₹0 for 6 months", "label": "Student Plus", "futureOnly": true, "oneRedemptionPerProfile": true, "verification": "student_id_face_match_or_school_questions"},
+  "pro": {"id": "pro", "price": "₹1,499/month", "label": "RUVION Pro"}
+}
