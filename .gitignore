@@ -1,0 +1,12 @@
+# Local secrets and runtime state
+RUVION/backend/*.sqlite3
+RUVION/backend/*.log
+RUVION/backend/.env
+RUVION/backend/__pycache__/
+
+# Native build output and temporary artifacts
+RUVION/build/
+work/
+outputs/
+.DS_Store
+
