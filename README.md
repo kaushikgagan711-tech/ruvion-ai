@@ -17,7 +17,13 @@ The current release gives every profile a server-tracked six-month Pro trial, in
 
 ## Windows
 
-This repository currently contains the native macOS target. A Windows package requires a separate Windows/Tauri port and must be built on a Windows runner; no Windows binary is claimed by this repository yet.
+The `windows/` folder contains a native WinForms/WebView2 shell that reuses the RUVION UI. Install the .NET 8 SDK and WebView2 Runtime, then run:
+
+```powershell
+dotnet publish windows/RUVION.Windows.csproj -c Release -r win-x64 --self-contained true -o windows/publish
+```
+
+GitHub Actions also builds `RUVION-Windows-x64.zip` automatically. Open **Actions → Build RUVION for Windows → the latest successful run → Artifacts** on another computer and download that ZIP.
 
 ## Security
 
